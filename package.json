@@ -8,7 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "@babel/runtime": "7.12.13",
+    "@babel/runtime": "^7.12.13",
     "classnames": "2.2.6",
     "local-storage": "2.0.0",
     "lodash": "4.17.20",
@@ -22,10 +22,16 @@
     "whatwg-fetch": "3.5.0"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.6.1",
+    "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "7.4.4",
-    "@babel/core": "7.2.0",
-    "@babel/plugin-transform-runtime": "7.12.15"
+    "@babel/plugin-transform-runtime": "7.12.15",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-plugin-transform-runtime": "^7.0.0-beta.3",
+    "babel-preset-env": "^1.7.0",
+    "parcel-bundler": "^1.6.1",
+    "sass": "^1.32.6"
   },
   "keywords": []
 }
