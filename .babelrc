@@ -1,9 +1,14 @@
 {
-  "plugins": ["@babel/plugin-transform-runtime","dynamic-import-node"],
-  "presets": ["@babel/preset-env","@babel/preset-react"],
-  "parserOpts": {
+    "presets": [
+        "@babel/preset-react",
+        ["@babel/preset-env", {
+            "targets": {
+                "esmodules": true
+            }
+        }]
+    ],
+
     "plugins": [
-      "dynamicImport"
+        "@babel/plugin-proposal-class-properties"
     ]
-  }
 }
