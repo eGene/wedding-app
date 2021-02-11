@@ -1,36 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import ceremonyImage from '../assets/img/ceremony.png';
-import receptionImage from '../assets/img/reception.png';
+import video1 from '../assets/video/video.webm';
+import video2 from '../assets/video/video4.mp4';
+import combinedImage from '../assets/img/combined-package.png';
+import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
+import receptionImage from '../assets/img/reception-only-package.png';
 
 function home() {
+  const [video, setVideo] = useState(video1)
   return (
     <div className="packages-wrapper">
-      <div className="package">
-        <Link to="/package/ceremony-and-reception">
-          <div className="multi-image">
-            <img src={ceremonyImage} alt="ceremony and reception" />
-            <img src={receptionImage} alt="ceremony and reception" />
-          </div>
-          <span>Ceremony And Reception</span>
-          <span className="from">From $2900</span>
-        </Link>
-      </div>
-      <div className="package">
-        <Link to="/package/ceremony-on-the-beach">
-          <img src={ceremonyImage} alt="ceremony on the beach" />
-          <span>Ceremony Only</span>
-          <span className="from">From $570</span>
-        </Link>
-      </div>
-      <div className="package">
-        <Link to="/package/reception-only">
-          <img src={receptionImage} alt="reception only" />
-          <span>Reception Only</span>
-          <span className="from">From $1800</span>
-        </Link>
+      <video autoPlay muted loop src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />
+      <div className="packages-inner">
+        <div className="package">
+          <Link to="/package/ceremony-and-reception">
+            <div className="left">
+              <img src={combinedImage} alt="ceremony and reception" />
+            </div>
+            <div className="right">
+              <span className="from">From $2900</span>
+              <span>Ceremony And Reception</span>
+            </div>
+          </Link>
+        </div>
+        <div className="package">
+          <Link to="/package/ceremony-on-the-beach">
+            <div className="left">
+              <img src={ceremonyImage} alt="ceremony on the beach" />
+            </div>
+            <div className="right">
+              <span className="from">From $570</span>
+              <span>Ceremony Only</span>
+            </div>
+          </Link>
+        </div>
+        <div className="package">
+          <Link to="/package/reception-only">
+            <div className="left">
+              <img src={receptionImage} alt="reception only" />
+            </div>
+            <div className="right">
+              <span className="from">From $1800</span>
+              <span>Reception Only</span>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
