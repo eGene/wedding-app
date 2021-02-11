@@ -12,7 +12,7 @@ function home() {
   const [video, setVideo] = useState(video1)
   return (
     <div className="packages-wrapper">
-      <video autoPlay muted loop src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />
+      <video autoPlay muted loop playsinline src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />
       <div className="packages-inner">
         <div className="package">
           <Link to="/package/ceremony-and-reception">
