@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import video1 from '../assets/video/video.mp4';
-import video2 from '../assets/video/video4.mp4';
+// import video1 from '../assets/video/video.mp4';
+// import video2 from '../assets/video/video4.mp4';
 import combinedImage from '../assets/img/combined-package.png';
 import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
 import receptionImage from '../assets/img/reception-only-package.png';
 
 function home() {
-  const [video, setVideo] = useState(video1)
+  const [video, setVideo] = useState(video1);
+  document.location = 'https://www.emeraldcoastevents.com/weddings';
+  /*
   return (
     <div className="packages-wrapper">
       <video autoPlay muted loop playsInline src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />
@@ -50,6 +52,7 @@ function home() {
       </div>
     </div>
   );
+  */
 }
 
 export default withRouter(home);

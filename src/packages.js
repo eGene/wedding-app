@@ -5,7 +5,7 @@ import moment from 'moment';
 import withViewport from 'react-in-viewport';
 import ls from 'local-storage';
 import { unionBy, cloneDeep, range, debounce, get } from "lodash";
-import { withRouter } from "react-router";
+import { withRouter, withHistory } from "react-router";
 import 'whatwg-fetch';
 import "react-datepicker/dist/react-datepicker.css";
 import SplitButton from './components/split-button';
@@ -792,7 +792,10 @@ class Packages extends React.Component {
             <div className="header">
               <div className="selected-plan">
                 <div className="back">
-                  <Link to="/">&larr;&nbsp;Go Back</Link>
+                  {
+                    this.props.history.length > 1 &&
+                    <Link to="/" onClick={() => this.props.history.goBack()}>&larr;&nbsp;Go Back</Link>
+                  }
                 </div>
                 <div className="actions">
                   <SplitButton>
