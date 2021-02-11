@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import video1 from '../assets/video/video.webm';
+import video1 from '../assets/video/video.mp4';
 import video2 from '../assets/video/video4.mp4';
 import combinedImage from '../assets/img/combined-package.png';
 import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
