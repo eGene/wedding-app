@@ -9,7 +9,7 @@ import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
 import receptionImage from '../assets/img/reception-only-package.png';
 
 function home() {
-  const [video, setVideo] = useState(video1);
+  // const [video, setVideo] = useState(video1);
   document.location = 'https://www.emeraldcoastevents.com/weddings';
   /*
   return (
