@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
+import ceremony from '../assets/img/ceremony.png';
 import video1 from '../assets/video/video.mp4';
-import video2 from '../assets/video/video4.mp4';
+import video2 from '../assets/video/video2.mp4';
+import video4 from '../assets/video/video4.mp4';
 import combinedImage from '../assets/img/combined-package.png';
 import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
 import receptionImage from '../assets/img/reception-only-package.png';
@@ -14,7 +16,8 @@ function home() {
   return (
     <div className="packages-wrapper">
       {/*<video autoPlay muted loop playsInline src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />*/}
-      <video autoPlay muted loop playsInline src={video} onClick={() => document.location = 'https://app.anglersgrill.com/tour/index.html'} />
+      <video autoPlay muted loop playsInline src={video2} onClick={() => document.location = 'https://app.anglersgrill.com/tour/index.html'} />
+      {/*<img src={ceremony} onClick={() => document.location = 'https://app.anglersgrill.com/tour/index.html'} />*/}
       <div className="packages-inner">
         <div className="package">
           <Link to="/package/ceremony-and-reception">
