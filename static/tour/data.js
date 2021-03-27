@@ -30,27 +30,27 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": -1.6178445247771105,
-          "pitch": 0.23888560380247625,
-          "rotation": 11.780972450961727,
+          "yaw": -1.6073241609257067,
+          "pitch": 0.21028398156772,
+          "rotation": 12.566370614359176,
           "target": "1-main-hall---2"
         },
         {
-          "yaw": -1.637383061028471,
-          "pitch": -0.030873615864972948,
+          "yaw": -1.8826280023830417,
+          "pitch": -0.04533940521791635,
           "rotation": 0,
-          "target": "6-patio"
+          "target": "7-patio"
         },
         {
-          "yaw": -2.2042447319689735,
-          "pitch": 0.16129076501763073,
-          "rotation": 4.71238898038469,
+          "yaw": -2.2245214330431615,
+          "pitch": 0.16456076646554685,
+          "rotation": 11.780972450961727,
           "target": "2-main-hall---3"
         },
         {
           "yaw": 3.042733835078762,
           "pitch": 0.14560028022197002,
-          "rotation": 3.141592653589793,
+          "rotation": 6.283185307179586,
           "target": "5-main-hall---6"
         }
       ],
@@ -92,10 +92,10 @@ var APP_DATA = {
           "target": "2-main-hall---3"
         },
         {
-          "yaw": -1.822853520730824,
-          "pitch": -0.04360361553701253,
+          "yaw": -1.8068978258585329,
+          "pitch": -0.10427829038265912,
           "rotation": 0,
-          "target": "6-patio"
+          "target": "7-patio"
         }
       ],
       "infoHotspots": []
@@ -130,16 +130,22 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": 2.964314627021176,
-          "pitch": 0.2936014807118301,
-          "rotation": 5.497787143782138,
+          "yaw": 2.9738564037577495,
+          "pitch": 0.30810702997867523,
+          "rotation": 10.995574287564278,
           "target": "3-main-hall---4"
         },
         {
           "yaw": -1.3286083136648834,
           "pitch": -0.08104088040159141,
           "rotation": 0,
-          "target": "6-patio"
+          "target": "7-patio"
+        },
+        {
+          "yaw": -2.962511674647331,
+          "pitch": 0.07562707527297974,
+          "rotation": 0,
+          "target": "6-changing-room"
         }
       ],
       "infoHotspots": []
@@ -174,16 +180,28 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": 1.859542471191114,
-          "pitch": 0.3310950689490735,
-          "rotation": 5.497787143782138,
+          "yaw": 1.782749627520273,
+          "pitch": 0.28939335648984255,
+          "rotation": 6.283185307179586,
           "target": "4-main-hall---5"
         },
         {
           "yaw": -1.3580973238018963,
           "pitch": -0.08987633782392024,
           "rotation": 0,
-          "target": "6-patio"
+          "target": "7-patio"
+        },
+        {
+          "yaw": -2.5666348424574057,
+          "pitch": 0.17305020060593712,
+          "rotation": 0,
+          "target": "6-changing-room"
+        },
+        {
+          "yaw": -0.12155169800113441,
+          "pitch": 0.17035528088547025,
+          "rotation": 0,
+          "target": "1-main-hall---2"
         }
       ],
       "infoHotspots": []
@@ -218,9 +236,9 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": -1.501423729635862,
-          "pitch": 0.24198727056996816,
-          "rotation": 5.497787143782138,
+          "yaw": -1.4648888283345745,
+          "pitch": 0.240331590809447,
+          "rotation": 6.283185307179586,
           "target": "5-main-hall---6"
         }
       ],
@@ -256,16 +274,60 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": -1.1091796474414437,
-          "pitch": 0.10284468986368367,
-          "rotation": 5.497787143782138,
+          "yaw": -1.1888007445121218,
+          "pitch": 0.13585381449891187,
+          "rotation": 6.283185307179586,
           "target": "0-main-hall---1"
+        },
+        {
+          "yaw": -2.7356524505029736,
+          "pitch": 0.18546819341209897,
+          "rotation": 0,
+          "target": "3-main-hall---4"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "6-patio",
+      "id": "6-changing-room",
+      "name": "Changing Room",
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        },
+        {
+          "tileSize": 512,
+          "size": 2048
+        }
+      ],
+      "faceSize": 1824,
+      "initialViewParameters": {
+        "pitch": 0,
+        "yaw": 0,
+        "fov": 1.5707963267948966
+      },
+      "linkHotspots": [
+        {
+          "yaw": -0.7490735424522548,
+          "pitch": 0.17075465028907644,
+          "rotation": 0,
+          "target": "3-main-hall---4"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "7-patio",
       "name": "Patio",
       "levels": [
         {
@@ -297,13 +359,19 @@ var APP_DATA = {
           "yaw": 2.583735696014461,
           "pitch": 0.09264971310616232,
           "rotation": 0,
-          "target": "7-beach"
+          "target": "8-beach"
+        },
+        {
+          "yaw": -0.5920738557063601,
+          "pitch": -0.5737335334283973,
+          "rotation": 0,
+          "target": "2-main-hall---3"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "7-beach",
+      "id": "8-beach",
       "name": "Beach",
       "levels": [
         {
@@ -335,13 +403,13 @@ var APP_DATA = {
           "yaw": -0.46201580625081995,
           "pitch": -0.09354750188116867,
           "rotation": 0,
-          "target": "6-patio"
+          "target": "7-patio"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "8-bathrooms",
+      "id": "9-bathrooms",
       "name": "Bathrooms",
       "levels": [
         {
@@ -368,7 +436,14 @@ var APP_DATA = {
         "yaw": 0,
         "fov": 1.5707963267948966
       },
-      "linkHotspots": [],
+      "linkHotspots": [
+        {
+          "yaw": -0.6803562298912951,
+          "pitch": 0.13605023230073776,
+          "rotation": 4.71238898038469,
+          "target": "0-main-hall---1"
+        }
+      ],
       "infoHotspots": []
     }
   ],
