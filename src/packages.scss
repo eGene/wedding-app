@@ -100,6 +100,7 @@ html, body {
 
         img {
           z-index: 2;
+          height: 100%;
         }
       }
 
@@ -510,7 +511,7 @@ button:disabled {
 
     input {
       padding: 5px;
-      font-size: 20px;
+      font-size: 14px;
       margin-bottom: 20px;
       width: 100%;
     }

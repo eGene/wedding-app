@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import moment from 'moment';
 import withViewport from 'react-in-viewport';
 import ls from 'local-storage';
-import { unionBy, cloneDeep, range, debounce, get } from "lodash";
+import { unionBy, cloneDeep, range, debounce, get, omit } from "lodash";
 import { withRouter, withHistory } from "react-router";
 import 'whatwg-fetch';
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +13,7 @@ import {
   CEREMONY_PACKAGES,
   RECEPTION_PACKAGES,
   COMBINED_PACKAGES,
+  PRIVATE_ROOM,
   ALL,
   ITEMS,
 } from "./packages-items";
@@ -24,6 +25,7 @@ const PACKAGES = {
   "ceremony-on-the-beach": CEREMONY_PACKAGES,
   "reception-only": RECEPTION_PACKAGES,
   "ceremony-and-reception": COMBINED_PACKAGES,
+  "private-room": PRIVATE_ROOM,
   // "all": ALL,
 };
 
@@ -159,7 +161,10 @@ class Packages extends React.Component {
             if (storedPackages[key]) {
               const storedItem = (storedPackages[key].addons || []).find(a => a.id === addon.id);
               if (storedItem) {
-                return storedItem;
+                return {
+                  ...storedItem,
+                  ...omit(addon, 'count'),
+                };
               } else {
                 return addon;
               }
@@ -450,11 +455,11 @@ class Packages extends React.Component {
       elHandle.style.left = -dx;
     }
     if (elImage) {
-      elImage.style.height = dx ? `calc(100% + ${dx / 1.5}px)` : 0;
+      // elImage.style.height = dx ? `calc(100% + ${dx / 1.5}px)` : 0;
       // elImage.style.top = -dx / 3;
       // elImage.style.bottom = -dx / 3;
     }
-  }
+  };
 
   handleSwipedRight = (item) => () => {
     if (item.image) {
@@ -467,7 +472,7 @@ class Packages extends React.Component {
     event.stopPropagation();
     this.setState({ showImage: false, swipingItem: false, swipingItemDX: 0 });
     this.changeSwipeElements(id, 0);
-  }
+  };
 
   changeImageHandleWidth = (dx) => {
     this.setState({ swipingItemDX: dx });
@@ -644,7 +649,7 @@ class Packages extends React.Component {
                             value={item.count}
                             onChange={this.changeSlider(item.id, isAddon)}
                           >
-                            { range(item.minCount, item.maxCount + 1).map(i => (
+                            { range(item.minCount, item.maxCount + 1, item.step || 1).map(i => (
                               <option key={i} value={i}>{i}</option>
                             )) }
                           </select>

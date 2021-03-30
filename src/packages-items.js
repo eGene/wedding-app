@@ -244,6 +244,16 @@ export const ITEMS = {
     maxCount: 20
     // dependsOn: "receptionTables"
   },
+  tableSkirts: {
+    title: "Table skirts",
+    description: "per each",
+    units: ['item', 'items'],
+    pricePerItem: 23.0,
+    count: 0,
+    minCount: 0,
+    maxCount: 20
+    // dependsOn: "receptionTables"
+  },
   linenNapkinsWhite: {
     title: "White linen napkins",
     pricePerItem: 0.0,
@@ -389,6 +399,37 @@ const getItem = (id, startOrder) => {
   const item = { id, ...ITEMS[id], order };
   order++;
   return item;
+};
+
+export const PRIVATE_ROOM = {
+  privateRoomRental: {
+    title: 'Private Room',
+    price: 350,
+    items: [
+      { ...getItem("venue", 0), title: 'Private venue with gulf view for 2 hours', description: 'from 10 am till 10 pm' },
+      { ...getItem("receptionTablesAndChairs"), description: '' },
+      { ...getItem("platesAndStuff"), title: 'Dinnerware and Silverware', description: '', pricePerItem: undefined, price: 0, count: undefined },
+      { ...getItem("tv") },
+      { ...getItem("sound") },
+      { ...getItem("decoratedCeiling") },
+      { ...getItem("bathrooms") },
+    ],
+    addons: [
+      { ...getItem("extraHour"), title: 'Additional hour stay', description: '$150 / hour', count: 1, pricePerItem: 150 },
+      { ...getItem("extraHour"), id: 'extraHour-2', title: 'Additional hour stay after 10 pm', count: 1 },
+      { ...getItem("changingRoom") },
+      { ...getItem("bar"), title: "Private bar with one bartender for 2 hours", description: '', pricePerItem: 75 / 2, count: 2, step: 2 },
+      { ...getItem("whiteTablecloths"), minCount: 1, count: 1 },
+      { ...getItem("tableSkirts"), minCount: 1, count: 1 },
+      { ...getItem("platesAndStuff"), minCount: 1, count: 1 },
+      { ...getItem("basicCenterpieces"), price: 14.0 },
+      { ...getItem("receptionChairSashes"), minCount: 1, count: 1 },
+      { ...getItem("tableRunners"), minCount: 1, maxCount: 20, pricePerItem: 10.0, count: 1 },
+      { ...getItem("linenNapkinsWhite"), pricePerItem: 1, minCount: 1, count: 1 },
+      { ...getItem("uplighting") },
+      { ...getItem("buffetServers") },
+    ],
+  },
 };
 
 export const CEREMONY_PACKAGES = {

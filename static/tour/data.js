@@ -36,8 +36,8 @@ var APP_DATA = {
           "target": "1-main-hall---2"
         },
         {
-          "yaw": -1.868764304205282,
-          "pitch": -0.050138382592777475,
+          "yaw": -1.8502702190725646,
+          "pitch": -0.06298239638536174,
           "rotation": 0,
           "target": "7-patio"
         },
@@ -148,8 +148,8 @@ var APP_DATA = {
           "target": "7-patio"
         },
         {
-          "yaw": -2.941932445027165,
-          "pitch": 0.044212168909311345,
+          "yaw": -2.931894302924208,
+          "pitch": 0.035210584412839196,
           "rotation": 0,
           "target": "6-changing-room"
         },
@@ -204,8 +204,8 @@ var APP_DATA = {
           "target": "7-patio"
         },
         {
-          "yaw": -2.5666348424574057,
-          "pitch": 0.17305020060593712,
+          "yaw": -2.5483192452332055,
+          "pitch": 0.1504430517098907,
           "rotation": 0,
           "target": "6-changing-room"
         },
@@ -248,8 +248,8 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": -1.3952043014455242,
-          "pitch": 0.1820454162820404,
+          "yaw": -1.443058900651213,
+          "pitch": 0.17782484188161973,
           "rotation": 6.283185307179586,
           "target": "5-main-hall---6"
         },
@@ -270,6 +270,12 @@ var APP_DATA = {
           "pitch": 0.06177985172798728,
           "rotation": 0,
           "target": "1-main-hall---2"
+        },
+        {
+          "yaw": -1.102447820488857,
+          "pitch": 0.037078557289822456,
+          "rotation": 1.5707963267948966,
+          "target": "9-bathrooms"
         }
       ],
       "infoHotspots": []
@@ -348,10 +354,16 @@ var APP_DATA = {
       },
       "linkHotspots": [
         {
-          "yaw": -0.7490735424522548,
-          "pitch": 0.17075465028907644,
+          "yaw": -0.7277581625739167,
+          "pitch": 0.12017943000499898,
           "rotation": 0,
           "target": "3-main-hall---4"
+        },
+        {
+          "yaw": -1.3476127139709728,
+          "pitch": -0.11998026254055105,
+          "rotation": 0,
+          "target": "7-patio"
         }
       ],
       "infoHotspots": []

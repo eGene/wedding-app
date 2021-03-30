@@ -9,6 +9,7 @@ import video3 from '../assets/video/video3.mp4';
 import video4 from '../assets/video/video4.mp4';
 import combinedImage from '../assets/img/combined-package.png';
 import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
+import privateRoomImage from '../assets/img/reception.png';
 import receptionImage from '../assets/img/reception-only-package.png';
 
 function home() {
@@ -44,7 +45,7 @@ function home() {
               <img src={ceremonyImage} alt="ceremony on the beach" />
             </div>
             <div className="right">
-              <span className="from">From $570</span>
+              <span className="from">From $530</span>
               <span>Ceremony Only</span>
             </div>
           </Link>
@@ -57,6 +58,17 @@ function home() {
             <div className="right">
               <span className="from">From $1800</span>
               <span>Reception Only</span>
+            </div>
+          </Link>
+        </div>
+        <div className="package">
+          <Link to="/package/private-room">
+            <div className="left">
+              <img src={privateRoomImage} alt="private room" />
+            </div>
+            <div className="right">
+              <span className="from">From $350</span>
+              <span>Private Room Rental</span>
             </div>
           </Link>
         </div>
