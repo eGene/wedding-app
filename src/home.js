@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import ceremony from '../assets/img/ceremony.png';
+import ceremony from '../assets/img/ceremony.jpg';
 import video1 from '../assets/video/video.mp4';
 import video2 from '../assets/video/video2.mp4';
 import video3 from '../assets/video/video3.mp4';
@@ -20,13 +20,13 @@ function home() {
       {/*<video autoPlay muted loop playsInline src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />*/}
       <div className="header-wrapper">
         <a href="https://app.anglersgrill.com/tour/index.html">
-          <video autoPlay muted loop playsInline src={video3} />
+          {/*<video autoPlay muted loop playsInline src={video3} />*/}
+          <img src={ceremony} onClick={() => document.location = 'https://app.anglersgrill.com/tour/index.html'} />
           <div className="hint-header-wrapper">
             <span>Take a Tour</span>
           </div>
         </a>
       </div>
-      {/*<img src={ceremony} onClick={() => document.location = 'https://app.anglersgrill.com/tour/index.html'} />*/}
       <div className="packages-inner">
         <div className="package">
           <Link to="/package/ceremony-and-reception">
