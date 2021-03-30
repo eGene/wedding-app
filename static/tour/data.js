@@ -320,6 +320,12 @@ var APP_DATA = {
           "pitch": 0.16171673858172397,
           "rotation": 0,
           "target": "3-main-hall---4"
+        },
+        {
+          "yaw": -3.133401715822407,
+          "pitch": 0.06348919739321168,
+          "rotation": 10.995574287564278,
+          "target": "9-bathrooms"
         }
       ],
       "infoHotspots": []
