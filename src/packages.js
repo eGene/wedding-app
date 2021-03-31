@@ -799,7 +799,8 @@ class Packages extends React.Component {
                 <div className="back">
                   {
                     this.props.history.length > 1 &&
-                    <a href="/">&larr;&nbsp;Go Back</a>
+                    <a href="https://events.anglersgrill.com/weddings">&larr;&nbsp;Go Back</a>
+                    // <a href="/">&larr;&nbsp;Go Back</a>
                     // <Link to="/" onClick={() => this.props.history.goBack()}>&larr;&nbsp;Go Back</Link>
                   }
                 </div>

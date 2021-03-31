@@ -277,7 +277,7 @@ export const ITEMS = {
   platesAndStuff: {
     title: "Charger plates, dinnerware, and siverware",
     units: ['item', 'items'],
-    pricePerItem: 1.0,
+    pricePerItem: 3.0,
     count: 0,
     minCount: 0,
     maxCount: 120
@@ -418,15 +418,15 @@ export const PRIVATE_ROOM = {
       { ...getItem("extraHour"), title: 'Additional hour stay', description: '$150 / hour', count: 1, pricePerItem: 150 },
       { ...getItem("extraHour"), id: 'extraHour-2', title: 'Additional hour stay after 10 pm', count: 1 },
       { ...getItem("changingRoom") },
-      { ...getItem("bar"), title: "Private bar with one bartender for 2 hours", description: '', pricePerItem: 75 / 2, count: 2, step: 2 },
+      { ...getItem("bar"), title: "Private bar with one bartender for 2 hours", description: '', pricePerItem: 75 / 2, count: 2, minCount: 2, step: 1 },
       { ...getItem("whiteTablecloths"), minCount: 1, count: 1 },
       { ...getItem("tableSkirts"), minCount: 1, count: 1 },
       { ...getItem("platesAndStuff"), minCount: 1, count: 1 },
       { ...getItem("basicCenterpieces"), price: 14.0 },
       { ...getItem("receptionChairSashes"), minCount: 1, count: 1 },
-      { ...getItem("tableRunners"), minCount: 1, maxCount: 20, pricePerItem: 10.0, count: 1 },
+      { ...getItem("tableRunners"), minCount: 1, maxCount: 20, pricePerItem: 10.0, count: 1, price: undefined },
       { ...getItem("linenNapkinsWhite"), pricePerItem: 1, minCount: 1, count: 1 },
-      { ...getItem("uplighting") },
+      // { ...getItem("uplighting") },
       { ...getItem("buffetServers") },
     ],
   },
@@ -554,7 +554,7 @@ export const RECEPTION_PACKAGES = {
       { ...getItem("receptionChairSashes"), description: '$2.50 / each' },
       { ...getItem("tableRunners"), description: '$10 / table', price: undefined, pricePerItem: 10, count: 0, minCount: 0, maxCount: 50 },
       { ...getItem("linenNapkinsColors"), count: 0, minCount: 0 },
-      { ...getItem("uplighting") },
+      // { ...getItem("uplighting") },
       { ...getItem("buffetServers") },
       { ...getItem("extraHour"), count: 1 }
     ]
@@ -651,7 +651,7 @@ export const COMBINED_PACKAGES = {
       { ...getItem("receptionChairSashes"), description: '$2.50 / each' },
       { ...getItem("tableRunners"), description: '$10 / table', price: undefined, pricePerItem: 10, count: 0, minCount: 0, maxCount: 50 },
       { ...getItem("linenNapkinsColors") },
-      { ...getItem("uplighting") },
+      // { ...getItem("uplighting") },
       { ...getItem("buffetServers") },
       { ...getItem("extraHour"), count: 1 }
     ]
@@ -748,7 +748,7 @@ export const COMBINED_PACKAGES = {
       { ...getItem("extraReceptionGuest"), maxCount: 80 },
       { ...getItem("bar"), title: 'Additional bartender for 4 hours', description: '$150 / bartender', pricePerItem: 150, units: ['bartender', 'bartenders'], count: 1, minCount: 1, maxCount: 4 },
       { ...getItem("receptionChairSashes"), description: '$2.50 / each' },
-      { ...getItem("uplighting") },
+      // { ...getItem("uplighting") },
       { ...getItem("buffetServers") },
       { ...getItem("extraHour"), count: 1 }
     ]

@@ -3,24 +3,18 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
 import ceremony from '../assets/img/ceremony.jpg';
-import video1 from '../assets/video/video.mp4';
-import video2 from '../assets/video/video2.mp4';
-import video3 from '../assets/video/video3.mp4';
-import video4 from '../assets/video/video4.mp4';
 import combinedImage from '../assets/img/combined-package.png';
 import ceremonyImage from '../assets/img/new-ceremony-only-package.png';
 import privateRoomImage from '../assets/img/reception.png';
 import receptionImage from '../assets/img/reception-only-package.png';
 
 function home() {
-  const [video, setVideo] = useState(video1);
-  // document.location = 'https://www.emeraldcoastevents.com/weddings';
+  // document.location = 'https://events.anglersgrill.com/weddings';
+  // <video autoPlay muted loop playsInline src={video3} />
   return (
     <div className="packages-wrapper">
-      {/*<video autoPlay muted loop playsInline src={video} onClick={() => setVideo(video === video1 ? video2 : video1)} />*/}
       <div className="header-wrapper">
         <a href="https://app.anglersgrill.com/tour/index.html">
-          {/*<video autoPlay muted loop playsInline src={video3} />*/}
           <img src={ceremony} onClick={() => document.location = 'https://app.anglersgrill.com/tour/index.html'} />
           <div className="hint-header-wrapper">
             <span>Take a Tour</span>
