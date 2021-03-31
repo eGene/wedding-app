@@ -9,8 +9,9 @@ import privateRoomImage from '../assets/img/reception.png';
 import receptionImage from '../assets/img/reception-only-package.png';
 
 function home() {
-  // document.location = 'https://events.anglersgrill.com/weddings';
+  document.location = 'https://events.anglersgrill.com/weddings';
   // <video autoPlay muted loop playsInline src={video3} />
+  /*
   return (
     <div className="packages-wrapper">
       <div className="header-wrapper">
@@ -69,6 +70,7 @@ function home() {
       </div>
     </div>
   );
+  */
 }
 
 export default withRouter(home);
