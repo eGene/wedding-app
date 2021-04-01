@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import moment from 'moment';
 import withViewport from 'react-in-viewport';
 import ls from 'local-storage';
-import { unionBy, cloneDeep, range, debounce, get, omit } from "lodash";
+import { unionBy, cloneDeep, range, debounce, throttle, get, omit } from "lodash";
 import { withRouter, withHistory } from "react-router";
 import 'whatwg-fetch';
 import "react-datepicker/dist/react-datepicker.css";
@@ -101,6 +101,7 @@ const SwipeableContainer = withViewport(({
   }
 
   const onStart = (event) => {
+    event.stopPropagation();
     setIsDown(true);
     setMoved(false);
     const touch = get(event.nativeEvent, 'touches.0') || get(event.nativeEvent, 'changedTouches.0');
@@ -109,17 +110,26 @@ const SwipeableContainer = withViewport(({
   }
 
   const onMove = (event) => {
+    event.stopPropagation();
     if (isDown) {
-      setMoved(true);
+      if (!moved) {
+        setMoved(true);
+      }
       const touch = get(event.nativeEvent, 'touches.0') || get(event.nativeEvent, 'changedTouches.0');
       const x = get(touch, 'pageX', 0);
-      setDX(x - currentX);
-      setCurrentX(x);
-      onSwiping({ deltaX: x - startX });
+      const newDX = x - currentX;
+      if (newDX !== dx) {
+        setDX(x - currentX);
+        if (currentX !== x) {
+          setCurrentX(x);
+          onSwiping({ deltaX: x - startX });
+        }
+      }
     }
   };
 
   const onEnd = (event) => {
+    event.stopPropagation();
     setIsDown(false);
     if (moved && dx > 0) {
       onSwipedRight();
@@ -132,9 +142,6 @@ const SwipeableContainer = withViewport(({
     <div
       /*{...handlers}*/
       {...rest}
-      onMouseDown={onStart}
-      onMouseMove={onMove}
-      onMouseUp={onEnd}
       onTouchStart={onStart}
       onTouchMove={onMove}
       onTouchEnd={onEnd}
@@ -189,7 +196,6 @@ class Packages extends React.Component {
       date: new Date(),
       showImage: false,
       swipingItem: false,
-      swipingItemDX: 0,
     };
   }
 
@@ -463,19 +469,15 @@ class Packages extends React.Component {
 
   handleSwipedRight = (item) => () => {
     if (item.image) {
-      this.setState({ showImage: item.id, swipingItem: false, swipingItemDX: this.currentSwipeDX });
+      this.setState({ showImage: item.id, swipingItem: false });
     }
   };
 
   handleImagePreviewClose = (id) => (event) => {
     event.preventDefault();
     event.stopPropagation();
-    this.setState({ showImage: false, swipingItem: false, swipingItemDX: 0 });
+    this.setState({ showImage: false, swipingItem: false });
     this.changeSwipeElements(id, 0);
-  };
-
-  changeImageHandleWidth = (dx) => {
-    this.setState({ swipingItemDX: dx });
   };
 
   handleSwiping = (item) => (event) => {
@@ -487,15 +489,15 @@ class Packages extends React.Component {
         }
         this.changeSwipeElements(item.id, event.deltaX);
       } else {
-        this.setState({ swipingItem: false, swipingItemDX: 0 });
+        this.setState({ swipingItem: false });
       }
     } else {
-      this.setState({ swipingItem: false, swipingItemDX: 0 });
+      this.setState({ swipingItem: false });
     }
   };
 
   handleSwiped = (item) => () => {
-    this.setState({ showImage: false, swipingItem: false, swipingItemDX: 0 });
+    this.setState({ showImage: false, swipingItem: false });
     this.changeSwipeElements(item.id, 0);
   };
 
@@ -541,7 +543,7 @@ class Packages extends React.Component {
   };
 
   renderItem = (item, isAddon) => {
-    const { packages, selectedPackage, swipingItem, swipingItemDX, showSwipeHint } = this.state;
+    const { packages, selectedPackage, swipingItem, showSwipeHint } = this.state;
     const isEditable = isAddon || item.pricePerItem !== undefined;
     let totalPrice = item.basePrice || 0;
 
@@ -557,9 +559,9 @@ class Packages extends React.Component {
 
     const containerProps = {};
     if (!item.category && item.image) {
-      containerProps.onSwipedRight = debounce(this.handleSwipedRight(item), 10);
-      containerProps.onSwiping = debounce(this.handleSwiping(item), 10);
-      containerProps.onSwiped = debounce(this.handleSwiped(item), 10);
+      containerProps.onSwipedRight = throttle(this.handleSwipedRight(item), 50);
+      containerProps.onSwiping = throttle(this.handleSwiping(item), 50);
+      containerProps.onSwiped = throttle(this.handleSwiped(item), 50);
       containerProps.itemId = item.id;
       containerProps.onVisible = this.showSwipeHint(item.id);
     }
@@ -582,7 +584,7 @@ class Packages extends React.Component {
                 <img
                   src={item.thumb}
                   alt={item.title}
-                  key={`${item.id}_${swipingItemDX}`}
+                  key={item.id}
                   id={`swipe-image-${item.id}`}
                 />
               }
