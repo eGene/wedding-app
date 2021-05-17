@@ -150,6 +150,23 @@ const FOOD_ITEMS = [
 
 export const ITEMS = {
   venue: { title: "Beachside ceremony venue", price: 250.0 },
+  glassWaterGoblet: {
+    title: 'Glass water goblet',
+    units: ['goblet', 'goblets'],
+    minCount: 1,
+    count: 1,
+    maxCount: 120,
+    pricePerItem: 1,
+  },
+  extraPrivateRoomGuest: {
+    title: 'Additional guest',
+    description: 'after 50',
+    pricePerItem: 5.0,
+    units: ['guest', 'guests'],
+    minCount: 1,
+    count: 1,
+    maxCount: 70,
+  },
   extraReceptionGuest: {
     title: 'Additional reception guest',
     description: 'includes: table, chair, tablecloth, linen napkins, charger plates, dinnerware and silverware',
@@ -273,11 +290,11 @@ export const ITEMS = {
     maxCount: 120
     // dependsOn: "receptionChairs"
   },
-  basicCenterpieces: { title: "Choice of basic centerpieces", price: 12.0 },
+  basicCenterpieces: { title: "Choice of basic centerpieces", price: 15.0 },
   platesAndStuff: {
     title: "Charger plates, dinnerware, and siverware",
     units: ['item', 'items'],
-    pricePerItem: 3.0,
+    pricePerItem: 2.5,
     count: 0,
     minCount: 0,
     maxCount: 120
@@ -406,7 +423,7 @@ export const PRIVATE_ROOM = {
     title: 'Private Room',
     price: 350,
     items: [
-      { ...getItem("venue", 0), title: 'Private venue with gulf view for 2 hours', description: 'from 10 am till 10 pm' },
+      { ...getItem("venue", 0), title: 'Private venue with gulf view for 2 hours', description: 'up to 50 guests; from 10 am till 10 pm' },
       { ...getItem("receptionTablesAndChairs"), description: '' },
       { ...getItem("platesAndStuff"), title: 'Dinnerware and Silverware', description: '', pricePerItem: undefined, price: 0, count: undefined },
       { ...getItem("tv") },
@@ -415,17 +432,32 @@ export const PRIVATE_ROOM = {
       { ...getItem("bathrooms") },
     ],
     addons: [
+      { ...getItem("extraPrivateRoomGuest") },
       { ...getItem("extraHour"), title: 'Additional hour stay', description: '$150 / hour', count: 1, pricePerItem: 150 },
       { ...getItem("extraHour"), id: 'extraHour-2', title: 'Additional hour stay after 10 pm', count: 1 },
       { ...getItem("changingRoom") },
-      { ...getItem("bar"), title: "Private bar with one bartender for 2 hours", description: '', pricePerItem: 75 / 2, count: 2, minCount: 2, step: 1 },
+      {
+        ...getItem("bar"),
+        title: "Private bar with one bartender for 2 hours",
+        description: '',
+        pricePerItem: 75 / 2,
+        count: 2,
+        minCount: 2,
+        step: 1,
+        units2: ['bartender', 'bartenders'],
+        minCount2: 1,
+        count2: 1,
+        maxCount2: 4,
+      },
       { ...getItem("whiteTablecloths"), minCount: 1, count: 1 },
       { ...getItem("tableSkirts"), minCount: 1, count: 1 },
       { ...getItem("platesAndStuff"), minCount: 1, count: 1 },
-      { ...getItem("basicCenterpieces"), price: 14.0 },
-      { ...getItem("receptionChairSashes"), minCount: 1, count: 1 },
+      { ...getItem("basicCenterpieces") },
+      { ...getItem("receptionChairSashes"), description: "polyester", minCount: 1, count: 1 },
+      { ...getItem("receptionChairSashes"), id: 'receptionChairSashesChiffon', description: "chiffon with rose", minCount: 1, count: 1, pricePerItem: 4 },
       { ...getItem("tableRunners"), minCount: 1, maxCount: 20, pricePerItem: 10.0, count: 1, price: undefined },
       { ...getItem("linenNapkinsWhite"), pricePerItem: 1, minCount: 1, count: 1 },
+      { ...getItem("glassWaterGoblet") },
       // { ...getItem("uplighting") },
       { ...getItem("buffetServers") },
     ],
@@ -570,7 +602,7 @@ export const COMBINED_PACKAGES = {
         category: 'Ceremony',
         description: '',
         items: [
-          { ...getItem("venue", 0) },
+          { ...getItem("venue", 0), "description": 'up to 50 guests' },
           { ...getItem("arbor2"), price: 0 },
           {
             ...getItem("beachChairs", 3),
@@ -664,7 +696,7 @@ export const COMBINED_PACKAGES = {
         category: 'Ceremony',
         description: '',
         items: [
-          { ...getItem("venue", 0) },
+          { ...getItem("venue", 0), "description": 'up to 50 guests' },
           { ...getItem("arbor2"), price: 0 },
           { ...getItem("arborDraping"), price: 0 },
           {

@@ -165,6 +165,7 @@ html, body {
 
           .description {
             font-size: 12px;
+            font-style: italic;
           }
         }
 
@@ -400,6 +401,7 @@ html, body {
           margin-right: 10px;
           .description {
             font-size: 12px;
+            font-style: italic;
           }
         }
 
@@ -500,6 +502,24 @@ button:disabled {
       .react-datepicker__day.react-datepicker__day--selected {
         color: white;
         background-color: #0097a0;
+      }
+    }
+
+    .time {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+
+      select {
+        padding: 5px;
+
+        &:first-child {
+          margin-right: 5px;
+        }
+
+        &:last-child {
+          margin-left: 5px;
+        }
       }
     }
 

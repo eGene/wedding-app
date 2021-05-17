@@ -31,6 +31,26 @@ const PACKAGES = {
 
 const nil = () => {};
 
+function convert12Hto24H(value) {
+  let newValue;
+
+  if (value.indexOf('am') >= 0) {
+    if (value === '12am') {
+      newValue = 0;
+    } else {
+      newValue = parseInt(value, 10);
+    }
+  } else {
+    if (value === '12pm') {
+      newValue = 12;
+    } else {
+      newValue = parseInt(value, 10) + 12;
+    }
+  }
+
+  return newValue;
+};
+
 function findItemInPackage(id, items) {
   let result;
   items.forEach(item => {
@@ -71,7 +91,11 @@ function getItemTotal(item, isAddon) {
         totalPrice += (item.count - item.includedCount) * item.pricePerItem;
       }
     } else {
-      totalPrice += item.count * item.pricePerItem;
+      if (!item.count2) {
+        totalPrice += item.count * item.pricePerItem;
+      } else {
+        totalPrice += item.count * item.count2 * item.pricePerItem;
+      }
     }
   }
   return totalPrice;
@@ -194,6 +218,8 @@ class Packages extends React.Component {
       contact: '',
       notes: '',
       date: new Date(),
+      timeFrom: '10am',
+      timeTo: '10pm',
       showImage: false,
       swipingItem: false,
     };
@@ -246,37 +272,60 @@ class Packages extends React.Component {
   }
 
   toggleAddon = (id) => () => {
-    const { packages, selectedPackage } = this.state;
-    this.setState({
-      packages: {
-        ...packages,
-        [selectedPackage]: {
-          ...packages[selectedPackage],
-          addons: packages[selectedPackage].addons.map((addon) => ({
-            ...addon,
-            checked: addon.id === id ? !addon.checked : addon.checked
-          }))
+    return new Promise(resolve => {
+      const { packages, selectedPackage } = this.state;
+      this.setState({
+        packages: {
+          ...packages,
+          [selectedPackage]: {
+            ...packages[selectedPackage],
+            addons: packages[selectedPackage].addons.map((addon) => ({
+              ...addon,
+              checked: addon.id === id ? !addon.checked : addon.checked
+            }))
+          }
         }
-      }
-    }, () => {
-      const { match: { url } } = this.props;
-      const packageUrl = url.split("/");
-      if (packageUrl[2]) {
-        ls.set(packageUrl[2], this.state.packages);
-      }
+      }, () => {
+        const { match: { url } } = this.props;
+        const packageUrl = url.split("/");
+        if (packageUrl[2]) {
+          ls.set(packageUrl[2], this.state.packages);
+        }
+        resolve();
+      });
     });
   };
 
-  changeSlider = (id, isAddon) => (event) => {
-    const { packages, selectedPackage } = this.state;
+  onTimeFromChange = (event) => {
+    this.setState({ timeFrom: event.target.value });
+  };
+
+  onTimeToChange = (event) => {
+    this.setState({ timeTo: event.target.value });
+  };
+
+  changeSelectValue = (item, isAddon, countField = 'count') => async (event) => {
+    const { id } = item;
     const field = isAddon ? "addons" : "items";
     let newCount = parseInt(event.target.value, 10);
+
+    if (!item.checked) {
+      await this.toggleAddon(id)();
+    }
+
+    const { packages, selectedPackage } = this.state;
     
     if (isAddon || !packages[selectedPackage].items[0].category) {
       const element = packages[selectedPackage][field].find((e) => e.id === id);
 
-      if (element.minCount > newCount) {
-        newCount = element.minCount;
+      if (countField === 'count') {
+        if (element.minCount > newCount) {
+          newCount = element.minCount;
+        }
+      } else if (countField === 'count2') {
+        if (element.minCount2 > newCount) {
+          newCount = element.minCount2;
+        }
       }
       
       this.setState({
@@ -286,7 +335,7 @@ class Packages extends React.Component {
             ...packages[selectedPackage],
             [field]: packages[selectedPackage][field].map((e) => ({
               ...e,
-              count: e.id === id ? newCount : e.count
+              [countField]: e.id === id ? newCount : e[countField]
             }))
           }
         }
@@ -303,8 +352,14 @@ class Packages extends React.Component {
           .find((e) => e.items.find(i => i.id === id))
           .items.find(i => i.id === id);
 
-      if (element.minCount > newCount) {
-        newCount = element.minCount;
+      if (countField === 'count') {
+        if (element.minCount > newCount) {
+          newCount = element.minCount;
+        }
+      } else if (countField === 'count2') {
+        if (element.minCount2 > newCount) {
+          newCount = element.minCount2;
+        }
       }
 
       this.setState({
@@ -316,7 +371,7 @@ class Packages extends React.Component {
               ...e,
               items: e.items.map(i => ({
                 ...i,
-                count: i.id === id ? newCount : i.count
+                [countField]: i.id === id ? newCount : i[countField]
               }))
             }))
           }
@@ -332,11 +387,11 @@ class Packages extends React.Component {
   };
 
   sendRequest = () => {
-    const { contact, date, notes, packages, selectedPackage } = this.state;
+    const { contact, date, notes, packages, selectedPackage, timeFrom, timeTo } = this.state;
 
     const renderItem = (item, isAddon) => {
       const price = getItemTotal(item, isAddon);
-      return `${item.title}${item.count !== undefined ? ` (count: ${item.count})` : ''}${price ? ` — $${price}` : ''}`;
+      return `${item.title}${item.count !== undefined ? ` (count: ${item.count}${item.count2 > 1 ? ` x ${item.count2}` : ''})` : ''}${price ? ` — $${price}` : ''}`;
     };
 
     let packageTotal = packages[selectedPackage].price;
@@ -399,6 +454,10 @@ class Packages extends React.Component {
       Package: `${packages[selectedPackage].title} ($${packages[selectedPackage].price})`,
       ...packageItems,
       Total: `$${packageTotal}`,
+    }
+
+    if (selectedPackage === 'privateRoomRental') {
+      body['Time'] = `${timeFrom} - ${timeTo}`;
     }
 
     const data = new FormData();
@@ -553,7 +612,11 @@ class Packages extends React.Component {
           totalPrice += (item.count - item.includedCount) * item.pricePerItem;
         }
       } else {
-        totalPrice += item.count * item.pricePerItem;
+        if (!item.count2) {
+          totalPrice += item.count * item.pricePerItem;
+        } else {
+          totalPrice += item.count * item.count2 * item.pricePerItem;
+        }
       }
     }
 
@@ -638,8 +701,8 @@ class Packages extends React.Component {
                               ? `${totalPrice ? `$${totalPrice}` : 'Included'}`
                               : (
                                 item.basePrice
-                                  ? `$${item.basePrice} + ${item.count} x $${item.pricePerItem} = $${totalPrice}`
-                                  : `${item.count} x $${item.pricePerItem} = $${totalPrice}`
+                                  ? `$${item.basePrice} + ${item.count} x $${item.pricePerItem} ${item.count2 > 1 ? ` x ${item.count2}` : '' } = $${totalPrice}`
+                                  : `${item.count} x $${item.pricePerItem} ${item.count2 > 1 ? ` x ${item.count2}` : '' } = $${totalPrice}`
                               )}
                           </div>
                         : null
@@ -649,7 +712,7 @@ class Packages extends React.Component {
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <select
                             value={item.count}
-                            onChange={this.changeSlider(item.id, isAddon)}
+                            onChange={this.changeSelectValue(item, isAddon)}
                           >
                             { range(item.minCount, item.maxCount + 1, item.step || 1).map(i => (
                               <option key={i} value={i}>{i}</option>
@@ -663,7 +726,27 @@ class Packages extends React.Component {
                             )
                           }
                         </div>
-                    }                        
+                    }
+                    {
+                      item.maxCount2 &&
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <select
+                              value={item.count2}
+                              onChange={this.changeSelectValue(item, isAddon, 'count2')}
+                            >
+                              { range(item.minCount2, item.maxCount2 + 1, item.step2 || 1).map(i => (
+                                <option key={i} value={i}>{i}</option>
+                              )) }
+                            </select>
+                            {
+                              item.units2 && (
+                                <div className="units">
+                                  {item.count2 === 1 ? item.units2[0] : item.units2[1]}
+                                </div>
+                              )
+                            }
+                        </div>
+                    }
                   </div>
                 )}
               </div>
@@ -697,7 +780,7 @@ class Packages extends React.Component {
         <div className="invoice-item">
           <div className="left">
             <div className="title">{item.title}</div>
-            <div className="description">{item.count !== undefined && `count: ${item.count}`}</div>
+            <div className="description">{item.count !== undefined && `count: ${item.count} ${item.count2 > 1 ? ` x ${item.count2}` : ''}`}</div>
           </div>
           <div className="right">{price ? `$${price}` : 'Included'}</div>
         </div>
@@ -853,7 +936,7 @@ class Packages extends React.Component {
 
           <div className="footer">
             { this.renderSendRequest() }
-            Need Help? Call <a href="tel:+18507391109">850-739 1109</a>.
+            Need Help? Call <a href="tel:+18507391109">850-739-1109</a>.
           </div>
 
           {
@@ -874,7 +957,7 @@ class Packages extends React.Component {
   }
 
   renderSendRequest() {
-    const { contact, date, notes } = this.state;
+    const { contact, date, notes, selectedPackage, timeFrom, timeTo } = this.state;
     return (
       <div className="request">
         <div className="picker">
@@ -887,6 +970,28 @@ class Packages extends React.Component {
             onChange={(date) => this.setState({ date })}
           />
         </div>
+
+        {
+          selectedPackage === 'privateRoomRental' &&
+          <React.Fragment>
+            <label>Time</label>
+            <div className="time">
+              <select value={timeFrom} onChange={this.onTimeFromChange}>
+                <option value="12am">12am</option>
+                { range(1, 12).map(i => <option key={i} value={`${i}am`}>{ `${i}am` }</option>) }
+                <option value="12pm">12pm</option>
+                { range(1, 12).map(i => <option key={i} value={`${i}pm`}>{ `${i}pm` }</option>) }
+              </select>
+              -
+              <select value={timeTo} onChange={this.onTimeToChange}>
+                <option value="12am">12am</option>
+                { range(1, 12).map(i => <option key={i} value={`${i}am`}>{ `${i}am` }</option>) }
+                <option value="12pm">12pm</option>
+                { range(1, 12).map(i => <option key={i} value={`${i}pm`}>{ `${i}pm` }</option>) }
+              </select>
+            </div>
+          </React.Fragment>
+        }
 
         <label htmlFor="contact">Contact information</label>
         <input
@@ -904,6 +1009,12 @@ class Packages extends React.Component {
           value={notes}
           onChange={event => this.setState({ notes: event.target.value })}
         />
+        {
+          selectedPackage === 'privateRoomRental' &&
+          <p className="info">
+            An extra decoration/setup fee can be applied based on the amount of added decorations.
+          </p>
+        }
         <button
           className="submit"
           disabled={!contact}
