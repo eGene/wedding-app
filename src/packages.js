@@ -461,7 +461,7 @@ class Packages extends React.Component {
     }
 
     const data = new FormData();
-    const fields = ['Date', 'Contact Information', 'Notes', 'Package'];
+    const fields = ['Date', 'Time', 'Contact Information', 'Notes', 'Package'];
 
     if (packageItems.Items) {
       fields.push('Items')
